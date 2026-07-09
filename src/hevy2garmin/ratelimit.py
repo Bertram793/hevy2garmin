@@ -66,3 +66,13 @@ def clear_rate_limit(db) -> None:
         db.set_app_config(_KEY, {"until": None, "hits": 0, "seconds": 0})
     except Exception:
         logger.debug("could not clear rate-limit cooldown", exc_info=True)
+
+
+def format_cooldown(seconds: int) -> str:
+    """Human-readable cooldown duration, e.g. 'about 1h 45m' or 'about 5m'."""
+    minutes = int(seconds) // 60
+    hours = minutes // 60
+    mins = minutes % 60
+    if hours > 0:
+        return f"about {hours}h {mins}m" if mins > 0 else f"about {hours}h"
+    return f"about {mins}m"

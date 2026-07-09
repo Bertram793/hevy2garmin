@@ -7,6 +7,7 @@ from hevy2garmin.ratelimit import (
     record_rate_limit,
     cooldown_remaining,
     clear_rate_limit,
+    format_cooldown,
     _KEY,
 )
 
@@ -66,6 +67,18 @@ def test_expired_cooldown_reports_zero():
         "hits": 1,
     })
     assert cooldown_remaining(db) == 0
+
+
+def test_format_cooldown_hours_and_minutes():
+    assert format_cooldown(6300) == "about 1h 45m"
+
+
+def test_format_cooldown_minutes_only():
+    assert format_cooldown(300) == "about 5m"
+
+
+def test_format_cooldown_exact_hours():
+    assert format_cooldown(7200) == "about 2h"
 
 
 def test_storage_failure_never_raises():
