@@ -16,6 +16,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `init` no longer reports a Garmin login it could not save. It checks the token folder can be written before asking for the password, and says so if the token file did not appear afterwards. In Docker on Linux a host folder that Docker created belongs to root, and the image runs as uid 999, so the login was lost and every later run failed with "No cached tokens" (#651, #653).
 - The Docker section of the README mounts both folders for `init`, recommends named volumes, explains uid 999 for host folders, and tells docker-compose users how to reuse their old volumes (#651, #652).
 
+## [0.10.0 (npm)] - 2026-10-02
+
+### Added
+
+- `resolveExclusiveMatches` keeps at most one Hevy workout per Garmin activity. `matchHevyToGarmin`'s second pass can hand a workout that has no activity of its own the closest one within six hours, even when the first pass already paired that activity with another workout. The smaller gap between the starts wins, and a tie goes to the lower Hevy id.
+- `HevyClient.updateWorkout(id, body)` replaces a workout on Hevy, with the same retry and auth handling as the reads.
+
 ## [0.12.0] - 2026-09-11
 
 ### Removed
