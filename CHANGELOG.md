@@ -8,6 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `onWatchActivityDeleted` takes an optional third argument, `{ hevyId, workoutEnd }`, passed from both delete sites, so a hook can key what it records on the workout. A hook written for two arguments keeps working (#655).
 - `web/Dockerfile` builds the dashboard from its standalone output: multi-stage, runs as the unprivileged `node` user, health check on `/api/version`, amd64 and arm64. `web/docker-compose.example.yml` runs it with Postgres 16 and a small scheduler that calls `GET /api/cron/sync` every two hours (#657).
 
 ### Fixed
